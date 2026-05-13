@@ -1,61 +1,127 @@
-# Gaspre Reservas
+# Gym Booking App
 
-Aplicación Angular para explorar clases disponibles, ver el detalle de cada clase y simular una reserva.
+Mini aplicación Angular para visualizar clases disponibles de gimnasio, ver su detalle y simular una reserva de cupo.
 
 ## Requisitos
 
-- `Node.js` 20 o superior
-- `pnpm` 10 o superior
+- Node: `v22.21.1`
+- pnpm: `10.32.1`
+- Angular CLI: `21.2.11`
 
-## Correr la app en local
-
-1. Instalar dependencias:
+## Instalación
 
 ```bash
 pnpm install
 ```
 
-2. Levantar el servidor de desarrollo:
+## Ejecución
 
 ```bash
 pnpm start
 ```
 
-3. Abrir la app en el navegador:
+Luego abrir:
 
-```text
-http://localhost:4200/
+```txt
+http://localhost:4200
 ```
 
-La app recarga automáticamente cuando cambiás archivos en `src/`.
+## Rutas principales
 
-## Scripts útiles
+- `/bookings`: listado de clases disponibles.
+- `/bookings/:bookingId`: detalle de una clase.
+- `/bookings/:bookingId/reserve`: formulario de reserva.
 
-Iniciar el servidor de desarrollo:
+## Arquitectura
 
-```bash
-pnpm start
+```txt
+src/app/
+  core/
+    interceptors/
+  features/
+    bookings/
+      components/
+        booking-list/
+      models/
+      mocks/
+      pages/
+        booking-detail-page/
+        booking-reservation-page/
+      services/
+    shared/
+      components/
 ```
 
-Generar un build de producción:
+Responsabilidades principales:
 
-```bash
-pnpm build
+- `App`: layout raíz con `router-outlet`.
+- `BookingsComponent`: pantalla contenedora del listado; obtiene datos desde `BookingApi` y resuelve estados `loading`, `error` y `success`.
+- `BookingListComponent`: renderiza el listado de clases y su empty state cuando recibe `[]`.
+- `BookingCardComponent`: card individual con navegación al detalle.
+- `BookingDetailPageComponent`: detalle de clase con CTA de reserva y fallback para clase inexistente.
+- `BookingReservationPageComponent`: resumen de clase, control del envío y feedback de éxito/error.
+- `BookingReservationFormComponent`: formulario de reserva con Reactive Forms.
+- `BookingApi`: servicio HTTP tipado para listado, detalle y creación de reserva.
+- `bookingsMockInterceptor`: simulación de API con delay y respuestas mockeadas.
+
+## Comunicación entre componentes
+
+La selección de una clase se representa mediante la URL (`bookingId`) usando rutas.
+Las páginas ruteadas obtienen los datos desde `BookingApi`.
+Dentro de la feature, los componentes presentacionales reciben datos mediante `input()` y comunican acciones mediante `output()`. El caso más claro es `BookingReservationFormComponent`, que emite `reservationSubmitted` hacia `BookingReservationPageComponent`.
+
+Esta decisión evita estado global innecesario y mantiene un flujo simple para una app pequeña.
+
+## Simulación de API
+
+La API se simula con un HTTP interceptor funcional.
+`BookingApi` usa `HttpClient` contra endpoints REST-like.
+Los datos mock viven separados en `src/app/features/bookings/mocks`.
+
+Endpoints mockeados:
+
+```txt
+GET /bookings
+GET /bookings/:bookingId
+POST /bookings/:bookingId/reservations
+GET /bookings?mock=empty
+GET /bookings?mock=error
 ```
 
-Ejecutar tests:
+## Estados contemplados
 
-```bash
-pnpm test
+```txt
+- Loading.
+- Error.
+- Empty.
+- Success de reserva.
+- Error de reserva.
+- Sin cupos disponibles.
 ```
 
-## Estructura básica
+## Decisiones técnicas
 
-- `src/app/features/bookings/` contiene el flujo de listado, detalle y reserva
-- `src/app/features/shared/` agrupa componentes visuales reutilizables
-- `public/assets/images/` contiene las imágenes usadas por la UI
+```txt
+- Standalone components.
+- Nueva sintaxis @if y @for.
+- Signals para el estado local de la reserva.
+- Reactive Forms para el formulario.
+- Lazy loading por rutas de la feature bookings.
+- SCSS puro sin librerías UI.
+- Mock API mediante interceptor HTTP.
+```
 
-## Notas
+## Limitaciones
 
-- La reserva es simulada; no existe persistencia real.
-- Si el puerto `4200` está ocupado, Angular te lo va a indicar al iniciar `pnpm start`.
+La reserva es simulada y no persiste al recargar la aplicación.
+No se implementó autenticación ni backend real porque no forman parte del alcance del challenge.
+No hay script de lint en `package.json`.
+
+## Validación
+
+```txt
+pnpm install: OK
+pnpm build: OK (con warning por budget de styles en booking-detail-page.scss)
+pnpm test: OK
+pnpm lint: no existe script
+```

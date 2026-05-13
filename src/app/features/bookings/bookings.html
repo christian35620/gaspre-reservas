@@ -1,3 +1,23 @@
 <main class="bookings-page">
-  <app-booking-list [bookings]="bookings" />
+  @if (viewModel$ | async; as vm) {
+    @if (vm.status === 'loading') {
+      <app-ui-status-message
+        variant="loading"
+        title="Cargando clases"
+        message="Estamos buscando las clases disponibles para vos."
+      />
+    }
+
+    @if (vm.status === 'error') {
+      <app-ui-status-message
+        variant="error"
+        title="No pudimos cargar las clases"
+        [message]="vm.error"
+      />
+    }
+
+    @if (vm.status === 'success') {
+      <app-booking-list [bookings]="vm.bookings" />
+    }
+  }
 </main>
