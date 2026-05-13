@@ -1,0 +1,65 @@
+<form
+  class="reservation-form"
+  [formGroup]="form"
+  (ngSubmit)="submitReservation()"
+  novalidate
+  aria-labelledby="reservation-form-title"
+>
+  <div class="reservation-form__header">
+    <h2 id="reservation-form-title">Tus datos</h2>
+  </div>
+
+  <div class="reservation-form__field">
+    <label for="reservation-name">Nombre</label>
+
+    <input
+      id="reservation-name"
+      type="text"
+      formControlName="name"
+      autocomplete="name"
+      placeholder="Ingresa tu nombre"
+      [attr.aria-invalid]="nameInvalid ? 'true' : null"
+      [attr.aria-describedby]="nameInvalid ? 'reservation-name-error' : null"
+    />
+
+    @if (nameInvalid) {
+      <p id="reservation-name-error" class="reservation-form__error">
+        Ingresá un nombre válido.
+      </p>
+    }
+  </div>
+
+  <div class="reservation-form__field">
+    <label for="reservation-email">Email</label>
+
+    <input
+      id="reservation-email"
+      type="email"
+      formControlName="email"
+      autocomplete="email"
+      placeholder="Ingresa tu email"
+      [attr.aria-invalid]="emailInvalid ? 'true' : null"
+      [attr.aria-describedby]="emailInvalid ? 'reservation-email-error' : null"
+    />
+
+    @if (emailInvalid) {
+      <p id="reservation-email-error" class="reservation-form__error">
+        Ingresá un email válido.
+      </p>
+    }
+  </div>
+
+  <button
+    class="reservation-form__submit"
+    type="submit"
+    [disabled]="submitting()"
+  >
+    <span class="reservation-form__submit-icon"></span>
+
+    @if (submitting()) {
+      Confirmando reserva...
+    } @else {
+      Confirmar reserva
+    }
+  </button>
+</form>

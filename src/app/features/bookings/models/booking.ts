@@ -12,6 +12,7 @@ export interface Booking {
   schedule: string;
   availableSpots: number;
   imageUrl: string;
+  imageAlt: string;
   description: string;
   category: BookingCategory;
 }

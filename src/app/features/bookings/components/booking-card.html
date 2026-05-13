@@ -1,0 +1,55 @@
+<app-ui-card>
+  <div class="booking-card">
+    <div class="booking-card__image-wrapper">
+      <img
+        [ngSrc]="booking().imageUrl"
+        [alt]="booking().imageAlt"
+        width="640"
+        height="360"
+        class="booking-card__image"
+      />
+    </div>
+
+    <div class="booking-card__content">
+      <div class="booking-card__meta">
+        <app-ui-badge>
+          {{ booking().category }}
+        </app-ui-badge>
+
+        <app-ui-badge [variant]="availabilityVariant()">
+          {{ availabilityLabel() }}
+        </app-ui-badge>
+      </div>
+
+      <div class="booking-card__body">
+        <h2 class="booking-card__title">
+          {{ booking().className }}
+        </h2>
+
+        <p class="booking-card__description">
+          {{ booking().description }}
+        </p>
+      </div>
+
+      <dl class="booking-card__details">
+        <div>
+          <dt>Profesor</dt>
+          <dd>{{ booking().instructor }}</dd>
+        </div>
+
+        <div>
+          <dt>Horario</dt>
+          <dd>{{ booking().schedule }}</dd>
+        </div>
+      </dl>
+
+      <a
+        class="booking-card__link"
+        [routerLink]="['/bookings', booking().id]"
+        [attr.aria-label]="'Ver detalle de la clase ' + booking().className"
+      >
+        Ver más
+      </a>
+    </div>
+  </div>
+</app-ui-card>

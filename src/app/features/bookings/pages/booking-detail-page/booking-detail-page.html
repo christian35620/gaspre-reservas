@@ -1,0 +1,122 @@
+<main class="booking-detail-page">
+  @if (viewModel$ | async; as vm) {
+    @if (vm.status === 'loading') {
+      <app-ui-status-message
+        variant="loading"
+        title="Cargando clase"
+        message="Estamos buscando los detalles de la clase seleccionada."
+      />
+    }
+
+    @if (vm.status === 'error') {
+      <app-ui-status-message
+        variant="error"
+        title="Clase no encontrada"
+        [message]="vm.error"
+      >
+        <a class="booking-detail-page__ghost-link" routerLink="/bookings">
+          Volver a reservas
+        </a>
+      </app-ui-status-message>
+    }
+
+    @if (vm.status === 'success') {
+      <section class="booking-detail-page__content" aria-labelledby="booking-detail-title">
+        <a class="booking-detail-page__back-link" routerLink="/bookings">
+          <span aria-hidden="true">←</span>
+          <span>Volver</span>
+        </a>
+
+        <header class="booking-detail-page__header">
+          <h1 id="booking-detail-title">Detalle de la clase</h1>
+        </header>
+
+        <article class="booking-detail-page__hero">
+          <div class="booking-detail-page__image-wrapper">
+            <img
+              class="booking-detail-page__image"
+              [src]="vm.booking.imageUrl"
+              [alt]="vm.booking.imageAlt"
+            />
+
+            <div class="booking-detail-page__badge">
+              {{ vm.booking.category }}
+            </div>
+          </div>
+        </article>
+
+        <app-ui-card variant="highlight">
+          <dl class="booking-detail-page__info">
+            <div class="booking-detail-page__info-row">
+              <dt>
+                <span class="booking-detail-page__info-icon booking-detail-page__info-icon--lotus"></span>
+              </dt>
+              <dd>
+                <span class="booking-detail-page__info-label">Clase</span>
+                <strong>{{ vm.booking.className }}</strong>
+              </dd>
+            </div>
+
+            <div class="booking-detail-page__info-row">
+              <dt>
+                <span class="booking-detail-page__info-icon booking-detail-page__info-icon--person"></span>
+              </dt>
+              <dd>
+                <span class="booking-detail-page__info-label">Profesor</span>
+                <strong>{{ vm.booking.instructor }}</strong>
+              </dd>
+            </div>
+
+            <div class="booking-detail-page__info-row">
+              <dt>
+                <span class="booking-detail-page__info-icon booking-detail-page__info-icon--calendar"></span>
+              </dt>
+              <dd>
+                <span class="booking-detail-page__info-label">Horario</span>
+                <strong>{{ vm.booking.schedule }}</strong>
+              </dd>
+            </div>
+
+            <div class="booking-detail-page__info-row">
+              <dt>
+                <span class="booking-detail-page__info-icon booking-detail-page__info-icon--group"></span>
+              </dt>
+              <dd>
+                <span class="booking-detail-page__info-label">Cupos disponibles</span>
+                <strong class="booking-detail-page__spots">
+                  {{ vm.booking.availableSpots }}
+                </strong>
+              </dd>
+            </div>
+          </dl>
+        </app-ui-card>
+
+        <section class="booking-detail-page__description" aria-labelledby="booking-detail-description-title">
+          <h2 id="booking-detail-description-title">Sobre esta clase</h2>
+          <p>{{ vm.booking.description }}</p>
+        </section>
+
+        <a
+          class="booking-detail-page__cta"
+          [class.booking-detail-page__cta--disabled]="vm.booking.availableSpots === 0"
+          [attr.aria-disabled]="vm.booking.availableSpots === 0"
+          [routerLink]="
+            vm.booking.availableSpots > 0
+              ? ['/bookings', vm.booking.id, 'reserve']
+              : null
+          "
+        >
+          <span class="booking-detail-page__button-icon booking-detail-page__button-icon--calendar"></span>
+          <span>Reservar</span>
+        </a>
+
+        <a class="booking-detail-page__secondary" routerLink="/bookings">
+          <span aria-hidden="true">←</span>
+          <span>Volver</span>
+        </a>
+
+        <p class="booking-detail-page__note">Reserva simulada, sin persistencia real.</p>
+      </section>
+    }
+  }
+</main>

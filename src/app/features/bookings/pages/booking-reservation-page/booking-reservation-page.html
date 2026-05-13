@@ -1,0 +1,139 @@
+<main class="booking-reservation-page">
+  @if (viewModel$ | async; as vm) {
+    @if (vm.status === 'loading') {
+      <app-ui-status-message
+        variant="loading"
+        title="Preparando reserva"
+        message="Estamos cargando los datos de la clase seleccionada."
+      />
+    }
+
+    @if (vm.status === 'error') {
+      <app-ui-status-message
+        variant="error"
+        title="Clase no encontrada"
+        [message]="vm.error"
+      >
+        <a class="booking-reservation-page__ghost-link" routerLink="/bookings">
+          Volver a reservas
+        </a>
+      </app-ui-status-message>
+    }
+
+    @if (vm.status === 'success') {
+      <section class="booking-reservation-page__content" aria-labelledby="reservation-title">
+        <a
+          class="booking-reservation-page__back-link"
+          [routerLink]="['/bookings', vm.booking.id]"
+        >
+          <span aria-hidden="true">←</span>
+          <span>Volver</span>
+        </a>
+
+        <header class="booking-reservation-page__header">
+          <h1 id="reservation-title">Reservar clase</h1>
+        </header>
+
+        <app-ui-card variant="highlight">
+          <article class="booking-summary" aria-labelledby="booking-summary-title">
+            <div class="booking-summary__image-wrapper">
+              <img
+                class="booking-summary__image"
+                [src]="vm.booking.imageUrl"
+                [alt]="vm.booking.imageAlt"
+              />
+            </div>
+
+            <div class="booking-summary__content">
+              <div class="booking-summary__badges">
+                <app-ui-badge>
+                  {{ vm.booking.category }}
+                </app-ui-badge>
+              </div>
+
+              <h2 id="booking-summary-title">{{ vm.booking.className }}</h2>
+
+              <dl class="booking-summary__details">
+                <div>
+                  <dt>
+                    <span class="booking-summary__icon booking-summary__icon--person"></span>
+                  </dt>
+                  <dd>{{ vm.booking.instructor }}</dd>
+                </div>
+
+                <div>
+                  <dt>
+                    <span class="booking-summary__icon booking-summary__icon--calendar"></span>
+                  </dt>
+                  <dd>{{ vm.booking.schedule }}</dd>
+                </div>
+
+                <div>
+                  <dt>
+                    <span class="booking-summary__icon booking-summary__icon--group"></span>
+                  </dt>
+                  <dd class="booking-summary__spots">
+                    {{ getAvailabilityLabel(vm.booking.availableSpots) }}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+        </app-ui-card>
+
+        @if (reservationStatus() === 'success') {
+          <app-ui-status-message
+            variant="success"
+            title="Reserva confirmada"
+            [message]="reservationMessage()"
+          >
+            <a class="booking-reservation-page__ghost-link" routerLink="/bookings">
+              Ver más clases
+            </a>
+          </app-ui-status-message>
+        }
+
+        @if (reservationStatus() === 'error') {
+          <app-ui-status-message
+            variant="error"
+            title="No pudimos reservar"
+            [message]="reservationMessage()"
+          />
+        }
+
+        @if (
+          vm.booking.availableSpots > 0 &&
+          reservationStatus() !== 'success'
+        ) {
+          <app-booking-reservation-form
+            [bookingId]="vm.booking.id"
+            [submitting]="reservationStatus() === 'submitting'"
+            (reservationSubmitted)="confirmReservation($event)"
+          />
+
+          <a class="booking-reservation-page__secondary" [routerLink]="['/bookings', vm.booking.id]">
+            <span aria-hidden="true">←</span>
+            <span>Volver</span>
+          </a>
+
+          <p class="booking-reservation-page__note">Reserva simulada, sin persistencia real.</p>
+        }
+
+        @if (
+          vm.booking.availableSpots <= 0 &&
+          reservationStatus() !== 'success'
+        ) {
+          <app-ui-status-message
+            variant="empty"
+            title="Sin cupos disponibles"
+            message="Esta clase ya no tiene cupos para reservar."
+          >
+            <a class="booking-reservation-page__ghost-link" routerLink="/bookings">
+              Buscar otra clase
+            </a>
+          </app-ui-status-message>
+        }
+      </section>
+    }
+  }
+</main>
