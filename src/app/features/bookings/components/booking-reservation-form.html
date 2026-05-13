@@ -7,7 +7,6 @@
 >
   <div class="reservation-form__header">
     <h2 id="reservation-form-title">Tus datos</h2>
-    <p>Completá la información para confirmar tu lugar.</p>
   </div>
 
   <div class="reservation-form__field">
@@ -18,7 +17,7 @@
       type="text"
       formControlName="name"
       autocomplete="name"
-      placeholder="Ingresá tu nombre"
+      placeholder="Ingresa tu nombre"
       [attr.aria-invalid]="nameInvalid ? 'true' : null"
       [attr.aria-describedby]="nameInvalid ? 'reservation-name-error' : null"
     />
@@ -38,7 +37,7 @@
       type="email"
       formControlName="email"
       autocomplete="email"
-      placeholder="Ingresá tu email"
+      placeholder="Ingresa tu email"
       [attr.aria-invalid]="emailInvalid ? 'true' : null"
       [attr.aria-describedby]="emailInvalid ? 'reservation-email-error' : null"
     />
@@ -55,6 +54,8 @@
     type="submit"
     [disabled]="submitting()"
   >
+    <span class="reservation-form__submit-icon"></span>
+
     @if (submitting()) {
       Confirmando reserva...
     } @else {

@@ -16,10 +16,14 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     :host {
       display: block;
       width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .ui-card {
       width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
       padding: 1rem;
       border: 1px solid rgba(108, 77, 255, 0.08);
       border-radius: 1.5rem;

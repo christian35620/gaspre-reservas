@@ -3,6 +3,8 @@
 }
 
 .bookings-page {
+  box-sizing: border-box;
+  max-width: 100%;
   width: min(100%, 72rem);
   margin: 0 auto;
   padding: 1.5rem 1rem 2rem;

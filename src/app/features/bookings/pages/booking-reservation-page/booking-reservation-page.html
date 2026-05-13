@@ -26,13 +26,12 @@
           class="booking-reservation-page__back-link"
           [routerLink]="['/bookings', vm.booking.id]"
         >
-          ← Volver al detalle
+          <span aria-hidden="true">←</span>
+          <span>Volver</span>
         </a>
 
         <header class="booking-reservation-page__header">
-          <p class="booking-reservation-page__eyebrow">Confirmá tu lugar</p>
           <h1 id="reservation-title">Reservar clase</h1>
-          <p>Completá tus datos para confirmar la reserva.</p>
         </header>
 
         <app-ui-card variant="highlight">
@@ -50,33 +49,32 @@
                 <app-ui-badge>
                   {{ vm.booking.category }}
                 </app-ui-badge>
-
-                <app-ui-badge
-                  [variant]="getAvailabilityVariant(vm.booking.availableSpots)"
-                >
-                  {{ getAvailabilityLabel(vm.booking.availableSpots) }}
-                </app-ui-badge>
               </div>
 
-              <div>
-                <h2 id="booking-summary-title">
-                  {{ vm.booking.className }}
-                </h2>
-
-                <p>
-                  {{ vm.booking.description }}
-                </p>
-              </div>
+              <h2 id="booking-summary-title">{{ vm.booking.className }}</h2>
 
               <dl class="booking-summary__details">
                 <div>
-                  <dt>Profesor</dt>
+                  <dt>
+                    <span class="booking-summary__icon booking-summary__icon--person"></span>
+                  </dt>
                   <dd>{{ vm.booking.instructor }}</dd>
                 </div>
 
                 <div>
-                  <dt>Horario</dt>
+                  <dt>
+                    <span class="booking-summary__icon booking-summary__icon--calendar"></span>
+                  </dt>
                   <dd>{{ vm.booking.schedule }}</dd>
+                </div>
+
+                <div>
+                  <dt>
+                    <span class="booking-summary__icon booking-summary__icon--group"></span>
+                  </dt>
+                  <dd class="booking-summary__spots">
+                    {{ getAvailabilityLabel(vm.booking.availableSpots) }}
+                  </dd>
                 </div>
               </dl>
             </div>
@@ -112,6 +110,13 @@
             [submitting]="reservationStatus() === 'submitting'"
             (reservationSubmitted)="confirmReservation($event)"
           />
+
+          <a class="booking-reservation-page__secondary" [routerLink]="['/bookings', vm.booking.id]">
+            <span aria-hidden="true">←</span>
+            <span>Volver</span>
+          </a>
+
+          <p class="booking-reservation-page__note">Reserva simulada, sin persistencia real.</p>
         }
 
         @if (

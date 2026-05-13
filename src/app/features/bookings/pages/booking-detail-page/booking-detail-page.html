@@ -23,76 +23,99 @@
     @if (vm.status === 'success') {
       <section class="booking-detail-page__content" aria-labelledby="booking-detail-title">
         <a class="booking-detail-page__back-link" routerLink="/bookings">
-          ← Volver
+          <span aria-hidden="true">←</span>
+          <span>Volver</span>
         </a>
 
+        <header class="booking-detail-page__header">
+          <h1 id="booking-detail-title">Detalle de la clase</h1>
+        </header>
+
+        <article class="booking-detail-page__hero">
+          <div class="booking-detail-page__image-wrapper">
+            <img
+              class="booking-detail-page__image"
+              [src]="vm.booking.imageUrl"
+              [alt]="vm.booking.imageAlt"
+            />
+
+            <div class="booking-detail-page__badge">
+              {{ vm.booking.category }}
+            </div>
+          </div>
+        </article>
+
         <app-ui-card variant="highlight">
-          <article class="booking-detail">
-            <div class="booking-detail__image-wrapper">
-              <img
-                class="booking-detail__image"
-                [src]="vm.booking.imageUrl"
-                [alt]="vm.booking.imageAlt"
-              />
+          <dl class="booking-detail-page__info">
+            <div class="booking-detail-page__info-row">
+              <dt>
+                <span class="booking-detail-page__info-icon booking-detail-page__info-icon--lotus"></span>
+              </dt>
+              <dd>
+                <span class="booking-detail-page__info-label">Clase</span>
+                <strong>{{ vm.booking.className }}</strong>
+              </dd>
             </div>
 
-            <div class="booking-detail__content">
-              <div class="booking-detail__badges">
-                <app-ui-badge>
-                  {{ vm.booking.category }}
-                </app-ui-badge>
-
-                <app-ui-badge
-                  [variant]="getAvailabilityVariant(vm.booking.availableSpots)"
-                >
-                  {{ getAvailabilityLabel(vm.booking.availableSpots) }}
-                </app-ui-badge>
-              </div>
-
-              <header class="booking-detail__header">
-                <p class="booking-detail__eyebrow">Clase seleccionada</p>
-
-                <h1 id="booking-detail-title">
-                  {{ vm.booking.className }}
-                </h1>
-
-                <p>
-                  {{ vm.booking.description }}
-                </p>
-              </header>
-
-              <dl class="booking-detail__info">
-                <div>
-                  <dt>Profesor</dt>
-                  <dd>{{ vm.booking.instructor }}</dd>
-                </div>
-
-                <div>
-                  <dt>Horario</dt>
-                  <dd>{{ vm.booking.schedule }}</dd>
-                </div>
-
-                <div>
-                  <dt>Cupos</dt>
-                  <dd>{{ vm.booking.availableSpots }} disponibles</dd>
-                </div>
-              </dl>
-
-              <a
-                class="booking-detail__cta"
-                [class.booking-detail__cta--disabled]="vm.booking.availableSpots === 0"
-                [attr.aria-disabled]="vm.booking.availableSpots === 0"
-                [routerLink]="
-                  vm.booking.availableSpots > 0
-                    ? ['/bookings', vm.booking.id, 'reserve']
-                    : null
-                "
-              >
-                Reservar
-              </a>
+            <div class="booking-detail-page__info-row">
+              <dt>
+                <span class="booking-detail-page__info-icon booking-detail-page__info-icon--person"></span>
+              </dt>
+              <dd>
+                <span class="booking-detail-page__info-label">Profesor</span>
+                <strong>{{ vm.booking.instructor }}</strong>
+              </dd>
             </div>
-          </article>
+
+            <div class="booking-detail-page__info-row">
+              <dt>
+                <span class="booking-detail-page__info-icon booking-detail-page__info-icon--calendar"></span>
+              </dt>
+              <dd>
+                <span class="booking-detail-page__info-label">Horario</span>
+                <strong>{{ vm.booking.schedule }}</strong>
+              </dd>
+            </div>
+
+            <div class="booking-detail-page__info-row">
+              <dt>
+                <span class="booking-detail-page__info-icon booking-detail-page__info-icon--group"></span>
+              </dt>
+              <dd>
+                <span class="booking-detail-page__info-label">Cupos disponibles</span>
+                <strong class="booking-detail-page__spots">
+                  {{ vm.booking.availableSpots }}
+                </strong>
+              </dd>
+            </div>
+          </dl>
         </app-ui-card>
+
+        <section class="booking-detail-page__description" aria-labelledby="booking-detail-description-title">
+          <h2 id="booking-detail-description-title">Sobre esta clase</h2>
+          <p>{{ vm.booking.description }}</p>
+        </section>
+
+        <a
+          class="booking-detail-page__cta"
+          [class.booking-detail-page__cta--disabled]="vm.booking.availableSpots === 0"
+          [attr.aria-disabled]="vm.booking.availableSpots === 0"
+          [routerLink]="
+            vm.booking.availableSpots > 0
+              ? ['/bookings', vm.booking.id, 'reserve']
+              : null
+          "
+        >
+          <span class="booking-detail-page__button-icon booking-detail-page__button-icon--calendar"></span>
+          <span>Reservar</span>
+        </a>
+
+        <a class="booking-detail-page__secondary" routerLink="/bookings">
+          <span aria-hidden="true">←</span>
+          <span>Volver</span>
+        </a>
+
+        <p class="booking-detail-page__note">Reserva simulada, sin persistencia real.</p>
       </section>
     }
   }
