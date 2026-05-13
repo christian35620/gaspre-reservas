@@ -1,14 +1,11 @@
 :host {
   display: block;
-  min-height: 100%;
-  background:
-    radial-gradient(circle at top left, rgba(124, 58, 237, 0.12), transparent 32rem),
-    #f8faff;
 }
 
 .booking-reservation-page {
   width: min(100%, 56rem);
   margin-inline: auto;
+  min-height: 100dvh;
   padding: 1rem;
 }
 
