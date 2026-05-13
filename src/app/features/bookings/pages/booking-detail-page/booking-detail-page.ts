@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, map, of, startWith, switchMap } from 'rxjs';
 
-import { UiBadgeComponent } from '../../../shared/components/ui-badge';
 import { UiCardComponent } from '../../../shared/components/ui-card';
 import { UiStatusMessageComponent } from '../../../shared/components/ui-status-message';
 import { Booking } from '../../models';
@@ -31,7 +30,6 @@ type BookingDetailViewModel =
   imports: [
     AsyncPipe,
     RouterLink,
-    UiBadgeComponent,
     UiCardComponent,
     UiStatusMessageComponent,
   ],
@@ -70,13 +68,4 @@ export class BookingDetailPageComponent {
     ),
   );
 
-  protected getAvailabilityVariant(
-    availableSpots: number,
-  ): 'success' | 'danger' {
-    return availableSpots > 0 ? 'success' : 'danger';
-  }
-
-  protected getAvailabilityLabel(availableSpots: number): string {
-    return availableSpots > 0 ? `${availableSpots} cupos disponibles` : 'Sin cupos';
-  }
 }

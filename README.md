@@ -1,67 +1,61 @@
-# GaspreReservas
+# Gaspre Reservas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
+Aplicación Angular para explorar clases disponibles, ver el detalle de cada clase y simular una reserva.
 
-## Install dependencies
+## Requisitos
 
-To install the project dependencies, run:
+- `Node.js` 20 o superior
+- `pnpm` 10 o superior
+
+## Correr la app en local
+
+1. Instalar dependencias:
 
 ```bash
 pnpm install
 ```
 
-## Development server
-
-To start a local development server, run:
+2. Levantar el servidor de desarrollo:
 
 ```bash
 pnpm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+3. Abrir la app en el navegador:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-pnpm ng generate component component-name
+```text
+http://localhost:4200/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+La app recarga automáticamente cuando cambiás archivos en `src/`.
+
+## Scripts útiles
+
+Iniciar el servidor de desarrollo:
 
 ```bash
-pnpm ng generate --help
+pnpm start
 ```
 
-## Building
-
-To build the project run:
+Generar un build de producción:
 
 ```bash
 pnpm build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Ejecutar tests:
 
 ```bash
 pnpm test
 ```
 
-## Running end-to-end tests
+## Estructura básica
 
-For end-to-end (e2e) testing, run:
+- `src/app/features/bookings/` contiene el flujo de listado, detalle y reserva
+- `src/app/features/shared/` agrupa componentes visuales reutilizables
+- `public/assets/images/` contiene las imágenes usadas por la UI
 
-```bash
-pnpm ng e2e
-```
+## Notas
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- La reserva es simulada; no existe persistencia real.
+- Si el puerto `4200` está ocupado, Angular te lo va a indicar al iniciar `pnpm start`.
