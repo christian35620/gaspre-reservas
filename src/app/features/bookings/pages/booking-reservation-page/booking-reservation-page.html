@@ -103,12 +103,21 @@
           />
         }
 
-        @if (vm.booking.availableSpots > 0) {
+        @if (
+          vm.booking.availableSpots > 0 &&
+          reservationStatus() !== 'success'
+        ) {
           <app-booking-reservation-form
             [bookingId]="vm.booking.id"
+            [submitting]="reservationStatus() === 'submitting'"
             (reservationSubmitted)="confirmReservation($event)"
           />
-        } @else {
+        }
+
+        @if (
+          vm.booking.availableSpots <= 0 &&
+          reservationStatus() !== 'success'
+        ) {
           <app-ui-status-message
             variant="empty"
             title="Sin cupos disponibles"

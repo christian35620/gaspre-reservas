@@ -96,12 +96,20 @@ export class BookingReservationPageComponent {
   }
 
   protected getAvailabilityLabel(availableSpots: number): string {
+    if (this.reservationStatus() === 'success') {
+      return 'Ya reservada';
+    }
+
     return availableSpots > 0 ? `${availableSpots} cupos disponibles` : 'Sin cupos';
   }
 
   protected getAvailabilityVariant(
     availableSpots: number,
-  ): 'success' | 'danger' {
+  ): 'success' | 'warning' | 'danger' {
+    if (this.reservationStatus() === 'success') {
+      return 'warning';
+    }
+
     return availableSpots > 0 ? 'success' : 'danger';
   }
 }

@@ -1,1 +1,137 @@
+:host {
+  display: block;
+}
 
+.reservation-form {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid #ede9fe;
+  border-radius: 1.5rem;
+  background: #ffffff;
+  box-shadow: 0 18px 44px rgba(17, 24, 39, 0.08);
+}
+
+.reservation-form__header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.reservation-form__header h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.reservation-form__header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.reservation-form__field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.reservation-form__field label {
+  color: #111827;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.reservation-form__field input {
+  min-height: 48px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d8d4ea;
+  border-radius: 1rem;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+  padding: 0.85rem 1rem;
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.reservation-form__field input::placeholder {
+  color: #9ca3af;
+}
+
+.reservation-form__field input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.14);
+}
+
+.reservation-form__field input[aria-invalid='true'] {
+  border-color: #dc2626;
+  background: #fff7f7;
+}
+
+.reservation-form__error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.reservation-form__submit {
+  display: inline-flex;
+  min-height: 50px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6d5dfc, #7c3aed);
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 16px 30px rgba(109, 93, 252, 0.28);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    opacity 160ms ease;
+}
+
+.reservation-form__submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 34px rgba(109, 93, 252, 0.32);
+}
+
+.reservation-form__submit:focus-visible {
+  outline: 3px solid #c4b5fd;
+  outline-offset: 3px;
+}
+
+.reservation-form__submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.68;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reservation-form__field input,
+  .reservation-form__submit {
+    transition: none;
+  }
+
+  .reservation-form__submit:hover {
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .reservation-form {
+    padding: 1.5rem;
+  }
+}
