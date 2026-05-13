@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-
-import { BookingsComponent } from './features/bookings/bookings';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [BookingsComponent],
+  imports: [RouterOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
