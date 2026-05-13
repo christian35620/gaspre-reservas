@@ -19,7 +19,7 @@ export const BOOKINGS_ROUTES: Routes = [
     path: ':bookingId/reserve',
     title: 'Reservar clase',
     loadComponent: () =>
-      import('./pages/booking-reservation-page').then(
+      import('./pages/booking-reservation-page/booking-reservation-page').then(
         (c) => c.BookingReservationPageComponent,
       ),
   },
