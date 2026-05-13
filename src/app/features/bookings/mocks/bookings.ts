@@ -8,8 +8,9 @@ export const BOOKINGS_MOCK: Booking[] = [
     schedule: 'Lunes 18:00',
     availableSpots: 10,
     imageUrl: 'assets/images/yoga-class.png',
+    imageAlt: 'Persona practicando yoga en una clase grupal',
     description:
-      'Una clase suave para mejorar flexibilidad, respiración y equilibrio.',
+      'Clase suave para mejorar flexibilidad, respiración y equilibrio. Ideal para todos los niveles.',
     category: 'yoga',
   },
   {
@@ -19,8 +20,9 @@ export const BOOKINGS_MOCK: Booking[] = [
     schedule: 'Martes 19:30',
     availableSpots: 8,
     imageUrl: 'assets/images/spinning-class.png',
+    imageAlt: 'Bicicletas fijas preparadas para una clase de spinning',
     description:
-      'Entrenamiento cardiovascular intenso sobre bicicleta fija.',
+      'Entrenamiento cardiovascular intenso sobre bicicleta fija, con música y cambios de ritmo.',
     category: 'spinning',
   },
   {
@@ -30,8 +32,9 @@ export const BOOKINGS_MOCK: Booking[] = [
     schedule: 'Miércoles 18:00',
     availableSpots: 12,
     imageUrl: 'assets/images/functional-class.png',
+    imageAlt: 'Personas entrenando fuerza y movilidad en un gimnasio',
     description:
-      'Circuito dinámico para trabajar fuerza, resistencia y movilidad.',
+      'Circuito dinámico para trabajar fuerza, resistencia, coordinación y movilidad.',
     category: 'funcional',
   },
   {
@@ -41,8 +44,9 @@ export const BOOKINGS_MOCK: Booking[] = [
     schedule: 'Jueves 20:00',
     availableSpots: 6,
     imageUrl: 'assets/images/crossfit-class.png',
+    imageAlt: 'Atleta realizando entrenamiento funcional de alta intensidad',
     description:
-      'Clase de alta intensidad con ejercicios funcionales variados.',
+      'Clase de alta intensidad con ejercicios funcionales variados y trabajo por estaciones.',
     category: 'crossfit',
   },
 ];
