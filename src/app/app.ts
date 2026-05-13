@@ -1,12 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+
+import { BookingsComponent } from './features/bookings/bookings';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [BookingsComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
-export class App {
-  protected readonly title = signal('gaspre-reservas');
-}
+export class App {}
