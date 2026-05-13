@@ -78,7 +78,7 @@ export const bookingsMockInterceptor: HttpInterceptorFn = (
               message: 'Clase no encontrada.',
             },
           }),
-      ).pipe(delay(10000));
+      ).pipe(delay(400));
     }
 
     return of(
@@ -86,7 +86,7 @@ export const bookingsMockInterceptor: HttpInterceptorFn = (
         status: 200,
         body: booking,
       }),
-    ).pipe(delay(10000));
+    ).pipe(delay(400));
   }
 
   if (
