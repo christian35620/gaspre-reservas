@@ -1,0 +1,99 @@
+<main class="booking-detail-page">
+  @if (viewModel$ | async; as vm) {
+    @if (vm.status === 'loading') {
+      <app-ui-status-message
+        variant="loading"
+        title="Cargando clase"
+        message="Estamos buscando los detalles de la clase seleccionada."
+      />
+    }
+
+    @if (vm.status === 'error') {
+      <app-ui-status-message
+        variant="error"
+        title="Clase no encontrada"
+        [message]="vm.error"
+      >
+        <a class="booking-detail-page__ghost-link" routerLink="/bookings">
+          Volver a reservas
+        </a>
+      </app-ui-status-message>
+    }
+
+    @if (vm.status === 'success') {
+      <section class="booking-detail-page__content" aria-labelledby="booking-detail-title">
+        <a class="booking-detail-page__back-link" routerLink="/bookings">
+          ← Volver
+        </a>
+
+        <app-ui-card variant="highlight">
+          <article class="booking-detail">
+            <div class="booking-detail__image-wrapper">
+              <img
+                class="booking-detail__image"
+                [src]="vm.booking.imageUrl"
+                [alt]="vm.booking.imageAlt"
+              />
+            </div>
+
+            <div class="booking-detail__content">
+              <div class="booking-detail__badges">
+                <app-ui-badge>
+                  {{ vm.booking.category }}
+                </app-ui-badge>
+
+                <app-ui-badge
+                  [variant]="getAvailabilityVariant(vm.booking.availableSpots)"
+                >
+                  {{ getAvailabilityLabel(vm.booking.availableSpots) }}
+                </app-ui-badge>
+              </div>
+
+              <header class="booking-detail__header">
+                <p class="booking-detail__eyebrow">Clase seleccionada</p>
+
+                <h1 id="booking-detail-title">
+                  {{ vm.booking.className }}
+                </h1>
+
+                <p>
+                  {{ vm.booking.description }}
+                </p>
+              </header>
+
+              <dl class="booking-detail__info">
+                <div>
+                  <dt>Profesor</dt>
+                  <dd>{{ vm.booking.instructor }}</dd>
+                </div>
+
+                <div>
+                  <dt>Horario</dt>
+                  <dd>{{ vm.booking.schedule }}</dd>
+                </div>
+
+                <div>
+                  <dt>Cupos</dt>
+                  <dd>{{ vm.booking.availableSpots }} disponibles</dd>
+                </div>
+              </dl>
+
+              <a
+                class="booking-detail__cta"
+                [class.booking-detail__cta--disabled]="vm.booking.availableSpots === 0"
+                [attr.aria-disabled]="vm.booking.availableSpots === 0"
+                [routerLink]="
+                  vm.booking.availableSpots > 0
+                    ? ['/bookings', vm.booking.id, 'reserve']
+                    : null
+                "
+              >
+                Reservar
+              </a>
+            </div>
+          </article>
+        </app-ui-card>
+      </section>
+    }
+  }
+</main>

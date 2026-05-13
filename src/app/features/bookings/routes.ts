@@ -11,7 +11,7 @@ export const BOOKINGS_ROUTES: Routes = [
     path: ':bookingId',
     title: 'Detalle de clase',
     loadComponent: () =>
-      import('./pages/booking-detail-page').then(
+      import('./pages/booking-detail-page/booking-detail-page').then(
         (c) => c.BookingDetailPageComponent,
       ),
   },
